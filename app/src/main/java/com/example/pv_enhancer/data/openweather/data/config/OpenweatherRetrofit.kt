@@ -1,9 +1,8 @@
-package com.example.pv_enhancer.data.openweather.repository.network
+package com.example.pv_enhancer.data.openweather.data.config
 
 import com.example.pv_enhancer.BuildConfig
 import com.example.pv_enhancer.base.util.NetworkManager
 import com.example.pv_enhancer.base.util.NoInternetException
-import com.example.pv_enhancer.data.openweather.data.model.ResponseOpenweatherDataModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,24 +12,13 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class OpenweatherNetwork {
-    lateinit var service: OpenweatherService
-
-    private fun loadRetrofit() {
-        val retrofit = Retrofit.Builder()
+class OpenweatherRetrofit @Inject constructor(private val networkManager: NetworkManager) {
+    fun loadRetrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(createHttpClient())
             .build()
-
-        service = retrofit.create(OpenweatherService::class.java)
-    }
-
-
-    suspend fun getAllWeather(): ResponseOpenweatherDataModel {
-        loadRetrofit()
-
-        return service.getAllWeather()
     }
 
 
@@ -47,26 +35,24 @@ class OpenweatherNetwork {
         builder.addInterceptor(loggerInterceptor)
 
         // Check internet connection
-        /*val checkInternetConnectivityInterceptor = Interceptor {
+        val checkInternetConnectivityInterceptor = Interceptor {
             if(!networkManager.isNetworkAvailable()) {
                 throw NoInternetException()
             }
 
             it.proceed((it.request()))
-        }*/
+        }
 
-        //builder.addInterceptor(checkInternetConnectivityInterceptor)
+        builder.addInterceptor(checkInternetConnectivityInterceptor)
 
         // App token
         builder.addInterceptor { chain ->
-            val appid = "773b88d704e3fbd8e4864b1ea1e84a47"
             val lat = 40.3871
-            val lon = -3.7546
+            val lon = 3.7546
             var request = chain.request()
             val url = request.url.newBuilder()
                 .addQueryParameter("lat", lat.toString())
                 .addQueryParameter("lon", lon.toString())
-                .addQueryParameter("appid", appid)
                 .build()
 
             request = request.newBuilder().url(url).build()
