@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.fragment.list.LocationFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".presentation.fragment.list.tab01_location.LocationFragment">
 
-</FrameLayout>
+        <!-- Here I have thought on placing 3 sections:
+        1. A Map
+        2. TexView with the user's location/address
+        3. RecyclerView with 3 sections:
+            i. Location information (Latitude, Longitude, City and country). I think this can be gotten using phone's location/GPS system). Still need to check
+            ii. Wheather & Sunrise/Sunset. This data is obtained from openWeather API
+            iii. Irradiances of current month (from NASA's API)
+         -->
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/locationFragmentMapView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/locationFragmentAddressTextView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="@string/location_fragment_textview_address"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationFragmentMapView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="373dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationFragmentAddressTextView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

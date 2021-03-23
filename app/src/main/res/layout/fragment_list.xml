@@ -15,22 +15,23 @@
             android:layout_marginStart="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="1dp"
+            app:tabMode="scrollable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager2"
+            android:id="@+id/listFragmentViewPager2"
             android:layout_width="408dp"
             android:layout_height="675dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listFragmentTabLayout"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintVertical_bias="0.0">
 
         </androidx.viewpager2.widget.ViewPager2>
 

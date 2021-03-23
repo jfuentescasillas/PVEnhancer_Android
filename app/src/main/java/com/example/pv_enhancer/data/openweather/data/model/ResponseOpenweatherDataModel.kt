@@ -1,5 +1,7 @@
 package com.example.pv_enhancer.data.openweather.data.model
 
+import java.io.Serializable
+
 data class ResponseOpenweatherDataModel(
     val base: String,
     val clouds: Clouds,
