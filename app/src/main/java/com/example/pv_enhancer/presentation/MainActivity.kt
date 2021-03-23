@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import androidx.activity.viewModels
 import com.example.pv_enhancer.R
 import com.example.pv_enhancer.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     val viewModel: MainViewModel by viewModels()
