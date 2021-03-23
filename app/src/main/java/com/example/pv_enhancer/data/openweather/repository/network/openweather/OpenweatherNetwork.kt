@@ -1,4 +1,4 @@
-package com.example.pv_enhancer.data.openweather.repository.network
+package com.example.pv_enhancer.data.openweather.repository.network.openweather
 
 import com.example.pv_enhancer.BuildConfig
 import com.example.pv_enhancer.base.util.NetworkManager
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
-class OpenweatherNetwork {
+class OpenweatherNetwork @Inject constructor(private val networkManager: NetworkManager) {
     lateinit var service: OpenweatherService
 
     private fun loadRetrofit() {
@@ -47,15 +47,15 @@ class OpenweatherNetwork {
         builder.addInterceptor(loggerInterceptor)
 
         // Check internet connection
-        /*val checkInternetConnectivityInterceptor = Interceptor {
+        val checkInternetConnectivityInterceptor = Interceptor {
             if(!networkManager.isNetworkAvailable()) {
                 throw NoInternetException()
             }
 
             it.proceed((it.request()))
-        }*/
+        }
 
-        //builder.addInterceptor(checkInternetConnectivityInterceptor)
+        builder.addInterceptor(checkInternetConnectivityInterceptor)
 
         // App token
         builder.addInterceptor { chain ->
